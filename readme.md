@@ -36,3 +36,5 @@ __Note__ It is recommended to use LifeCycle method
 
 ## 4. What is the use of refs?
 - The ref is used to return a reference to the element.They should be avoided in most cases,but they can be useful when you need to access direct DOM element or an instance of a component.
+## 5. What is the difference between shadow DOM and Virtual DOM?
+- The shadow DOM is a browser technology designed primarily for scoping variables and css in web components.The Virtual is a concept implemented by libraries in Javascript on top of browers APIs.
