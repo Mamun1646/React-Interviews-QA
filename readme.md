@@ -33,8 +33,12 @@ __Note__ It is recommended to use LifeCycle method
 ```bash
 <button onClick={()=>{handleClick(id)}}>Button Name</button>
 ```
+## 4. What is the use of refs?
 
-## What is switching component?
+- The ref is used to return a reference to the element.They should be avoided in most cases,but they can be useful when you need to access direct DOM element or an instance of a component.
+## 5. What is the difference between shadow DOM and Virtual DOM?
+- The shadow DOM is a browser technology designed primarily for scoping variables and css in web components.The Virtual is a concept implemented by libraries in Javascript on top of browers APIs.
+## 6. What is switching component?
 A switching component is a component that renders one of many components. We need to use object to map prop values to components.
 
 For example, a switching component to display different __pages__ based on page prop:
