@@ -65,24 +65,29 @@ const Page = (props) => {
 Page.propTypes = {
   page: PropTypes.oneOf(Object.keys(PAGES)).isRequired,
 };
+
 ```
 
 
 
-### 7. Why should component names start with capital letter?
-    If you are rendering your component using JSX, the name of that component has to begin with a capital letter otherwise React will throw an error as an unrecognized tag. This convention is because only HTML elements and SVG tags can begin with a lowercase letter.
+###  7. Why should component names start with capital letter?
 
+If you are rendering your component using JSX, the name of that component has to begin with a capital letter otherwise React will throw an error as an unrecognized tag. This convention is because only HTML elements and SVG tags can begin with a lowercase letter.
 
-    ```bash
-    class SomeComponent extends Component {
+```jsx harmony
+   class SomeComponent extends Component {
       // Code goes here
     }
 
-    ```
+```
 
-    You can define component class which name starts with lowercase letter, but when it's imported it should have capital letter. Here lowercase is fine:
+    
+ 
 
-    ```bash
+
+You can define component class which name starts with lowercase letter, but when it's imported it should have capital letter. Here lowercase is fine:
+
+```jsx harmony
 
     class myComponent extends Component {
       render() {
@@ -92,25 +97,46 @@ Page.propTypes = {
 
     export default myComponent;
 
-    ```
+```
 
-    While when imported in another file it should start with capital letter:
+While when imported in another file it should start with capital letter:
+```jsx harmony
+ import MyComponent from "./myComponent";
 
-    ```bash
 
-    import MyComponent from "./myComponent";
-
-    ```
-
-    #### What are the exceptions on React component naming?
-
-    The component names should start with an uppercase letter but there are few exceptions to this convention. The lowercase tag names with a dot (property accessors) are still considered as valid component names.
-    For example, the below tag can be compiled to a valid component,
-
-    ```bash
-         render() {
+```
+   
+### 8.What are the exceptions on React component naming?
+The component names should start with an uppercase letter but there are few exceptions to this convention. The lowercase tag names with a dot (property accessors) are still considered as valid component names.
+    For example, the below tag can be compiled to a valid component.
+```jsx harmony
+ render() {
               return (
                 <obj.component/> // `React.createElement(obj.component)`
               )
         }
-    ```
+
+```
+
+You can simply use `Array.prototype.map` with ES6 _arrow function_ syntax.
+For example, the `items` array of objects is mapped into an array of components:
+
+```jsx harmony
+    <tbody>
+      {items.map((item) => (
+        <SomeComponent key={item.id} name={item.name} />
+      ))}
+    </tbody>
+```
+
+But you can't iterate using `for` loop:
+
+```jsx harmony
+    <tbody>
+      for (let i = 0; i < items.length; i++) {
+        <SomeComponent key={items[i].id} name={items[i].name} />
+      }
+    </tbody>
+```
+
+This is because JSX tags are transpiled into _function calls_, and you can't use statements inside expressions. This may change thanks to `do` expressions which are _stage 1 proposal_.
