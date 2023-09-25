@@ -3,7 +3,7 @@
 ## 1. Why should we not update the state directly?
 
 - If we try to update the state directly then it won't re-render the component.
-```bash
+```jsx harmony
 
 //wrong 
 this.state.message="hello world"
@@ -13,24 +13,23 @@ this.state.message="hello world"
 
 - Instead use setState() method it schedules an update to a components state object.When state changes , the component responds by re-redering
 
-```bash
+```jsx harmony
 
 //right
 setState({message:"hello world"})
-
 ```
 
 ## 2. What is the purpose of callback function as an argument of setState()?
 - The callback function is invoked when the setState finished and the components get re-rended.Since `setState()` is __asynchronous__ the callback function is used for any post action.
 
-```bash
+```jsx harmony
 setState({message:"hello world"},()=>{console.log("The state and component re-rendered")})
 ```
 __Note__ It is recommended to use LifeCycle method
 
 ## 3. How to pass a parameter to an event handler of callback?
 - You can use an arrow function to wrap around an event handler and pass parameters.
-```bash
+```jsx harmony
 <button onClick={()=>{handleClick(id)}}>Button Name</button>
 ```
 ## 4. What is the use of refs?
@@ -42,7 +41,7 @@ __Note__ It is recommended to use LifeCycle method
 A switching component is a component that renders one of many components. We need to use object to map prop values to components.
 
 For example, a switching component to display different __pages__ based on page prop:
-```bash
+```jsx harmony
 import HomePage from "./HomePage";
 import AboutPage from "./AboutPage";
 import ServicesPage from "./ServicesPage";
@@ -106,7 +105,7 @@ While when imported in another file it should start with capital letter:
 
 ```
    
-### 8.What are the exceptions on React component naming?
+#### What are the exceptions on React component naming?
 The component names should start with an uppercase letter but there are few exceptions to this convention. The lowercase tag names with a dot (property accessors) are still considered as valid component names.
     For example, the below tag can be compiled to a valid component.
 ```jsx harmony
@@ -117,7 +116,7 @@ The component names should start with an uppercase letter but there are few exce
         }
 
 ```
-
+### 8.How to loop inside JSX?
 You can simply use `Array.prototype.map` with ES6 _arrow function_ syntax.
 For example, the `items` array of objects is mapped into an array of components:
 
@@ -140,3 +139,59 @@ But you can't iterate using `for` loop:
 ```
 
 This is because JSX tags are transpiled into _function calls_, and you can't use statements inside expressions. This may change thanks to `do` expressions which are _stage 1 proposal_.
+
+### 9.How to pretty print JSON with React?
+\We can use `<pre>` tag so that the formatting of the `JSON.stringify()` is retained:
+```jsx harmony
+     const data = { name: "John", age: 42 };
+
+     class User extends React.Component {
+       render() {
+         return <pre>{JSON.stringify(data, null, 2)}</pre>;
+       }
+     }
+
+     React.render(<User />, document.getElementById("container"));
+```
+
+ ### 10.Why you can't update props in React?
+The React philosophy is that props should be _immutable_ and _top-down_. This means that a parent can send any prop values to a child, but the child can't modify received props.
+
+### 11. How can we find the version of React at runtime in the browser?
+You can use `React.version` to get the version.
+```jsx harmony
+     const REACT_VERSION = React.version;
+
+     ReactDOM.render(
+       <div>{`React version: ${REACT_VERSION}`}</div>,
+       document.getElementById("app")
+     );
+```
+
+### What are the possible ways of updating objects in state?
+
+1. **Calling `setState()` with an object to merge with state:**
+
+- Using `Object.assign()` to create a copy of the object:
+
+    ```javascript
+          const user = Object.assign({}, this.state.user, { age: 42 });
+          this.setState({ user });
+          ```
+ - Using _spread operator_:
+
+    ```javascript
+          const user = { ...this.state.user, age: 42 };
+          this.setState({ user });
+          ```
+
+2. **Calling `setState()` with a function:**
+
+```javascript
+        this.setState((prevState) => ({
+          user: {
+            ...prevState.user,
+            age: 42,
+          },
+        }));
+```
